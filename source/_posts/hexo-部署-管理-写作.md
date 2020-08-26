@@ -19,7 +19,7 @@ date: 2020-08-26 17:06:09
 
 在windows上管理node的多版本安装，可以使用[Node Version Manager for Windows](https://github.com/coreybutler/nvm-windows "nvm")
 
-安装[nvm][nvm]之前，需要卸载所有已存在的node以及所有已存在的npm
+安装[nvm](https://github.com/coreybutler/nvm-windows)之前，需要卸载所有已存在的node以及所有已存在的npm
 
 #### 卸载node
 
@@ -32,11 +32,11 @@ date: 2020-08-26 17:06:09
 
 #### 更新nvm
 
-重新运行[nvm][nvm]的新版本安装包即可
+重新运行nvm的新版本安装包即可
 
 #### 使用nvm安装管理node
 
-介绍几个[nvm][nvm]的常用命令，以便用来安装node，更详细的命令说明，查看[nvm的github page][nvm]
+介绍几个nvm的常用命令，以便用来安装node，更详细的命令说明，查看[nvm的github page](https://github.com/coreybutler/nvm-windows)
 
 1. `nvm list [available]`查看已安装的node版本，带上`available`参数则显示可以安装的node版本
 2. `nvm on`启用node版本管理
