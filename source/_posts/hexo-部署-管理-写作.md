@@ -159,3 +159,7 @@ hexo clean && hexo deploy
 
 在github的Repository Settings中，将默认分支改为_config.yml中的部署分支。
 
+#### hexo从仓库重新生成站点
+
+使用git clone将站点从远程仓库clone下来。切换到站点管理分支，默认是master。重新进行上文*安装-建站-管理* 的步骤即可。
+
