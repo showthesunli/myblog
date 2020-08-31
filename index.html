@@ -64,6 +64,59 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-跨域" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/myblog/2020/09/01/%E8%B7%A8%E5%9F%9F/" class="article-date">
+  <time datetime="2020-08-31T22:56:51.000Z" itemprop="datePublished">2020-09-01</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/myblog/categories/%E5%89%8D%E7%AB%AF/">前端</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/myblog/2020/09/01/%E8%B7%A8%E5%9F%9F/">跨域</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="什么是跨域？"><a href="#什么是跨域？" class="headerlink" title="什么是跨域？"></a>什么是跨域？</h2><p>浏览器在不同的源上请求内容，就叫做跨域</p>
+<h2 id="什么是源，以及同源策略？"><a href="#什么是源，以及同源策略？" class="headerlink" title="什么是源，以及同源策略？"></a>什么是源，以及同源策略？</h2><p>协议，域名，端口三者的组合即为源。同源策略是浏览器的一种核心安全机制，即一个源内的内容不能加载另外一个源的内容。</p>
+<h2 id="为什么会有同源策略？"><a href="#为什么会有同源策略？" class="headerlink" title="为什么会有同源策略？"></a>为什么会有同源策略？</h2><p>同源策略的根本目的是为了保证浏览器用户的数据访问安全。假若浏览器中一个源的脚本可以控制浏览器访问其他任何源的内容时，将会造成很严重数据泄露。</p>
+<h2 id="怎么解决跨域？"><a href="#怎么解决跨域？" class="headerlink" title="怎么解决跨域？"></a>怎么解决跨域？</h2><p>当开发需要解决跨域问题时，我们应该想的是：怎么合法的从其他源获取数据？从这个问题出发，解决方案就有两个要素：</p>
+<ol>
+<li>请求方向目标源标注自己的身份，目标源如何处理请求交给目标源的服务器处理</li>
+<li>目标源响应时，标注哪些接收方是合法的</li>
+</ol>
+<p>以上方案即HTTP协议给出CORS方案，是解决跨域问题的根本方案。<a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Access_control_CORS" title="MDN">HTTP访问控制（CORS）</a>这里有详细的基于HTTP CORS的描写。</p>
+<p>另一种方案即使用JSONP方案。<script>标签的src属性是不受同源策略影响的，可以绕过同源策略。它必须指定回调函数，且服务器返回数据也必须配合客户端：将数据、js逻辑以及回调函数拼接成可执行js代码。JSONP只支持Get方法，并且容易受到XSS攻击。</p>
+<h2 id="为什么标签不受同源策略影响？"><a href="#为什么标签不受同源策略影响？" class="headerlink" title="为什么标签不受同源策略影响？"></a>为什么<script>标签不受同源策略影响？</h2><p>script 标签在源内是html文档的标签，不管它是不是用js生成的标签，这时它都可以理解为同源的。当它发送请求并且得到响应时，源内的脚本对响应的内容<strong>没有</strong>读写以及操作的权限。加载并运行的脚本也是其他源的脚本。这相当于把控制权交予响应回来的脚本。所以并没有安全问题。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://showthesunli.github.io/myblog/2020/09/01/%E8%B7%A8%E5%9F%9F/" data-id="ckej67iue000broyugkqa4dmk" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/myblog/tags/cros/" rel="tag">cros</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/myblog/tags/%E8%B7%A8%E5%9F%9F/" rel="tag">跨域</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-服务器上的git" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/myblog/2020/08/28/%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B8%8A%E7%9A%84git/" class="article-date">
@@ -111,7 +164,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://showthesunli.github.io/myblog/2020/08/28/%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B8%8A%E7%9A%84git/" data-id="ckedd85sl0007bsyublcjergk" class="article-share-link">Share</a>
+      <a data-url="https://showthesunli.github.io/myblog/2020/08/28/%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B8%8A%E7%9A%84git/" data-id="ckej67iu80007royugbnd93tp" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/myblog/tags/git/" rel="tag">git</a></li></ul>
@@ -232,7 +285,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://showthesunli.github.io/myblog/2020/08/26/hexo-%E9%83%A8%E7%BD%B2-%E7%AE%A1%E7%90%86-%E5%86%99%E4%BD%9C/" data-id="ckedd85se0002bsyu9of83fel" class="article-share-link">Share</a>
+      <a data-url="https://showthesunli.github.io/myblog/2020/08/26/hexo-%E9%83%A8%E7%BD%B2-%E7%AE%A1%E7%90%86-%E5%86%99%E4%BD%9C/" data-id="ckej67itw0002royu6tov3j2c" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/myblog/tags/hexo/" rel="tag">hexo</a></li></ul>
@@ -291,7 +344,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://showthesunli.github.io/myblog/2020/08/24/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%EF%BC%8C%E5%AE%8C%E7%BE%8E%E5%B9%B3%E6%96%B9%E6%95%B0%E9%97%AE%E9%A2%98%E5%AE%9E%E4%BE%8B/" data-id="ckedd85si0005bsyu6ayk8nna" class="article-share-link">Share</a>
+      <a data-url="https://showthesunli.github.io/myblog/2020/08/24/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%EF%BC%8C%E5%AE%8C%E7%BE%8E%E5%B9%B3%E6%96%B9%E6%95%B0%E9%97%AE%E9%A2%98%E5%AE%9E%E4%BE%8B/" data-id="ckej67iu30005royubriq437k" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/myblog/tags/leetcode/" rel="tag">leetcode</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/myblog/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" rel="tag">动态规划</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/myblog/tags/%E5%AE%8C%E7%BE%8E%E5%B9%B3%E6%96%B9%E6%95%B0/" rel="tag">完美平方数</a></li></ul>
@@ -367,7 +420,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://showthesunli.github.io/myblog/2020/08/24/E-R%E5%9B%BE/" data-id="ckedd85sc0001bsyucpxgfl0r" class="article-share-link">Share</a>
+      <a data-url="https://showthesunli.github.io/myblog/2020/08/24/E-R%E5%9B%BE/" data-id="ckej67itt0001royueqhq7fuq" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/myblog/tags/%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AE%BE%E8%AE%A1/" rel="tag">数据库设计</a></li></ul>
@@ -452,7 +505,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://showthesunli.github.io/myblog/2020/08/24/%E5%BB%BA%E8%A1%A8%E7%BA%A6%E6%9D%9F/" data-id="ckedd85sj0006bsyucsbmae7r" class="article-share-link">Share</a>
+      <a data-url="https://showthesunli.github.io/myblog/2020/08/24/%E5%BB%BA%E8%A1%A8%E7%BA%A6%E6%9D%9F/" data-id="ckej67iu60006royubd5a3bzv" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/myblog/tags/mysql/" rel="tag">mysql</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/myblog/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="tag">数据库</a></li></ul>
@@ -474,7 +527,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">分类</h3>
     <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/myblog/categories/git/">git</a></li><li class="category-list-item"><a class="category-list-link" href="/myblog/categories/%E5%8D%9A%E5%AE%A2/">博客</a></li><li class="category-list-item"><a class="category-list-link" href="/myblog/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a></li><li class="category-list-item"><a class="category-list-link" href="/myblog/categories/%E7%AE%97%E6%B3%95/">算法</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/myblog/categories/%E7%AE%97%E6%B3%95/leetcode/">leetcode</a></li></ul></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/myblog/categories/git/">git</a></li><li class="category-list-item"><a class="category-list-link" href="/myblog/categories/%E5%89%8D%E7%AB%AF/">前端</a></li><li class="category-list-item"><a class="category-list-link" href="/myblog/categories/%E5%8D%9A%E5%AE%A2/">博客</a></li><li class="category-list-item"><a class="category-list-link" href="/myblog/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a></li><li class="category-list-item"><a class="category-list-link" href="/myblog/categories/%E7%AE%97%E6%B3%95/">算法</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/myblog/categories/%E7%AE%97%E6%B3%95/leetcode/">leetcode</a></li></ul></li></ul>
     </div>
   </div>
 
@@ -484,7 +537,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">标签</h3>
     <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/myblog/tags/git/" rel="tag">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/myblog/tags/hexo/" rel="tag">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/myblog/tags/leetcode/" rel="tag">leetcode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/myblog/tags/mysql/" rel="tag">mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/myblog/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" rel="tag">动态规划</a></li><li class="tag-list-item"><a class="tag-list-link" href="/myblog/tags/%E5%AE%8C%E7%BE%8E%E5%B9%B3%E6%96%B9%E6%95%B0/" rel="tag">完美平方数</a></li><li class="tag-list-item"><a class="tag-list-link" href="/myblog/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="tag">数据库</a></li><li class="tag-list-item"><a class="tag-list-link" href="/myblog/tags/%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AE%BE%E8%AE%A1/" rel="tag">数据库设计</a></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/myblog/tags/cros/" rel="tag">cros</a></li><li class="tag-list-item"><a class="tag-list-link" href="/myblog/tags/git/" rel="tag">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/myblog/tags/hexo/" rel="tag">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/myblog/tags/leetcode/" rel="tag">leetcode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/myblog/tags/mysql/" rel="tag">mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/myblog/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" rel="tag">动态规划</a></li><li class="tag-list-item"><a class="tag-list-link" href="/myblog/tags/%E5%AE%8C%E7%BE%8E%E5%B9%B3%E6%96%B9%E6%95%B0/" rel="tag">完美平方数</a></li><li class="tag-list-item"><a class="tag-list-link" href="/myblog/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="tag">数据库</a></li><li class="tag-list-item"><a class="tag-list-link" href="/myblog/tags/%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AE%BE%E8%AE%A1/" rel="tag">数据库设计</a></li><li class="tag-list-item"><a class="tag-list-link" href="/myblog/tags/%E8%B7%A8%E5%9F%9F/" rel="tag">跨域</a></li></ul>
     </div>
   </div>
 
@@ -494,7 +547,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">标签云</h3>
     <div class="widget tagcloud">
-      <a href="/myblog/tags/git/" style="font-size: 10px;">git</a> <a href="/myblog/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/myblog/tags/leetcode/" style="font-size: 10px;">leetcode</a> <a href="/myblog/tags/mysql/" style="font-size: 10px;">mysql</a> <a href="/myblog/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" style="font-size: 10px;">动态规划</a> <a href="/myblog/tags/%E5%AE%8C%E7%BE%8E%E5%B9%B3%E6%96%B9%E6%95%B0/" style="font-size: 10px;">完美平方数</a> <a href="/myblog/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" style="font-size: 10px;">数据库</a> <a href="/myblog/tags/%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AE%BE%E8%AE%A1/" style="font-size: 10px;">数据库设计</a>
+      <a href="/myblog/tags/cros/" style="font-size: 10px;">cros</a> <a href="/myblog/tags/git/" style="font-size: 10px;">git</a> <a href="/myblog/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/myblog/tags/leetcode/" style="font-size: 10px;">leetcode</a> <a href="/myblog/tags/mysql/" style="font-size: 10px;">mysql</a> <a href="/myblog/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" style="font-size: 10px;">动态规划</a> <a href="/myblog/tags/%E5%AE%8C%E7%BE%8E%E5%B9%B3%E6%96%B9%E6%95%B0/" style="font-size: 10px;">完美平方数</a> <a href="/myblog/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" style="font-size: 10px;">数据库</a> <a href="/myblog/tags/%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AE%BE%E8%AE%A1/" style="font-size: 10px;">数据库设计</a> <a href="/myblog/tags/%E8%B7%A8%E5%9F%9F/" style="font-size: 10px;">跨域</a>
     </div>
   </div>
 
@@ -503,7 +556,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">归档</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/myblog/archives/2020/08/">八月 2020</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/myblog/archives/2020/09/">九月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/myblog/archives/2020/08/">八月 2020</a></li></ul>
     </div>
   </div>
 
@@ -514,6 +567,10 @@
     <h3 class="widget-title">最新文章</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/myblog/2020/09/01/%E8%B7%A8%E5%9F%9F/">跨域</a>
+          </li>
         
           <li>
             <a href="/myblog/2020/08/28/%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B8%8A%E7%9A%84git/">服务器上的git</a>
@@ -529,10 +586,6 @@
         
           <li>
             <a href="/myblog/2020/08/24/E-R%E5%9B%BE/">E-R图</a>
-          </li>
-        
-          <li>
-            <a href="/myblog/2020/08/24/%E5%BB%BA%E8%A1%A8%E7%BA%A6%E6%9D%9F/">建表约束</a>
           </li>
         
       </ul>
