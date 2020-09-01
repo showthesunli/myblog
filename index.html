@@ -101,11 +101,12 @@
 <p>以上方案即HTTP协议给出CORS方案，是解决跨域问题的根本方案。<a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Access_control_CORS" title="MDN">HTTP访问控制（CORS）</a>这里有详细的基于HTTP CORS的描写。</p>
 <p>另一种方案即使用JSONP方案。<code>&lt;script&gt;</code>标签的src属性是不受同源策略影响的，可以绕过同源策略。它必须指定回调函数，且服务器返回数据也必须配合客户端：将数据、js逻辑以及回调函数拼接成可执行js代码。JSONP只支持Get方法，并且容易受到XSS攻击。</p>
 <h2 id="为什么-lt-script-gt-标签不受跨域影响？"><a href="#为什么-lt-script-gt-标签不受跨域影响？" class="headerlink" title="为什么&lt;script&gt;标签不受跨域影响？"></a>为什么<code>&lt;script&gt;</code>标签不受跨域影响？</h2><p>script 标签在源内是html文档的标签，不管它是不是用js生成的标签，这时它都可以理解为同源的。当它发送请求并且得到响应时，源内的脚本对响应的内容<strong>没有</strong>读写以及操作的权限。加载并运行的脚本也是其他源的脚本。这相当于把控制权交予响应回来的脚本。所以并没有安全问题。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>浏览器设计同源策略并不是为了完全杜绝跨域访问，所以，解决跨域问题的核心思想是：<strong>跨域得来的数据，其访问权与执行权要完全交予目标源，本源内的脚本不能拥有读写执行跨域得来的数据的权限</strong></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://showthesunli.github.io/myblog/2020/09/01/%E8%B7%A8%E5%9F%9F/" data-id="ckej6m110000bbwyugjo38m4q" class="article-share-link">Share</a>
+      <a data-url="https://showthesunli.github.io/myblog/2020/09/01/%E8%B7%A8%E5%9F%9F/" data-id="ckej6y6nl000broyucr7bb9q8" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/myblog/tags/%E8%B7%A8%E5%9F%9F/" rel="tag">跨域</a></li></ul>
@@ -164,7 +165,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://showthesunli.github.io/myblog/2020/08/28/%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B8%8A%E7%9A%84git/" data-id="ckej6m10x0007bwyu2h3ldyxe" class="article-share-link">Share</a>
+      <a data-url="https://showthesunli.github.io/myblog/2020/08/28/%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B8%8A%E7%9A%84git/" data-id="ckej6y6nj000aroyub0fh9g8l" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/myblog/tags/git/" rel="tag">git</a></li></ul>
@@ -285,7 +286,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://showthesunli.github.io/myblog/2020/08/26/hexo-%E9%83%A8%E7%BD%B2-%E7%AE%A1%E7%90%86-%E5%86%99%E4%BD%9C/" data-id="ckej6m10p0002bwyug2v70n5v" class="article-share-link">Share</a>
+      <a data-url="https://showthesunli.github.io/myblog/2020/08/26/hexo-%E9%83%A8%E7%BD%B2-%E7%AE%A1%E7%90%86-%E5%86%99%E4%BD%9C/" data-id="ckej6y6nd0004royuangbb6cf" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/myblog/tags/hexo/" rel="tag">hexo</a></li></ul>
@@ -344,7 +345,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://showthesunli.github.io/myblog/2020/08/24/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%EF%BC%8C%E5%AE%8C%E7%BE%8E%E5%B9%B3%E6%96%B9%E6%95%B0%E9%97%AE%E9%A2%98%E5%AE%9E%E4%BE%8B/" data-id="ckej6m10t0005bwyu5azz20lf" class="article-share-link">Share</a>
+      <a data-url="https://showthesunli.github.io/myblog/2020/08/24/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%EF%BC%8C%E5%AE%8C%E7%BE%8E%E5%B9%B3%E6%96%B9%E6%95%B0%E9%97%AE%E9%A2%98%E5%AE%9E%E4%BE%8B/" data-id="ckej6y6nf0005royucr0072ag" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/myblog/tags/leetcode/" rel="tag">leetcode</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/myblog/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" rel="tag">动态规划</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/myblog/tags/%E5%AE%8C%E7%BE%8E%E5%B9%B3%E6%96%B9%E6%95%B0/" rel="tag">完美平方数</a></li></ul>
@@ -420,7 +421,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://showthesunli.github.io/myblog/2020/08/24/E-R%E5%9B%BE/" data-id="ckej6m10n0001bwyu2blidb7r" class="article-share-link">Share</a>
+      <a data-url="https://showthesunli.github.io/myblog/2020/08/24/E-R%E5%9B%BE/" data-id="ckej6y6mz0000royu7gg6bf9o" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/myblog/tags/%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AE%BE%E8%AE%A1/" rel="tag">数据库设计</a></li></ul>
@@ -505,7 +506,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://showthesunli.github.io/myblog/2020/08/24/%E5%BB%BA%E8%A1%A8%E7%BA%A6%E6%9D%9F/" data-id="ckej6m10v0006bwyu5e59ewd3" class="article-share-link">Share</a>
+      <a data-url="https://showthesunli.github.io/myblog/2020/08/24/%E5%BB%BA%E8%A1%A8%E7%BA%A6%E6%9D%9F/" data-id="ckej6y6ng0006royu51xjhts0" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/myblog/tags/mysql/" rel="tag">mysql</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/myblog/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="tag">数据库</a></li></ul>

@@ -15,7 +15,7 @@
 <meta property="og:description" content="什么是跨域？浏览器在不同的源上请求内容，就叫做跨域 什么是源，以及同源策略？协议，域名，端口三者的组合即为源。同源策略是浏览器的一种核心安全机制，即一个源内的内容不能加载另外一个源的内容。 为什么会有同源策略？同源策略的根本目的是为了保证浏览器用户的数据访问安全。假若浏览器中一个源的脚本可以控制浏览器访问其他任何源的内容时，将会造成很严重数据泄露。 怎么解决跨域？当开发需要解决跨域问题时，我们应该">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-08-31T22:56:51.000Z">
-<meta property="article:modified_time" content="2020-08-31T23:54:51.534Z">
+<meta property="article:modified_time" content="2020-09-01T00:04:41.268Z">
 <meta property="article:author" content="lee">
 <meta property="article:tag" content="跨域">
 <meta name="twitter:card" content="summary">
@@ -104,11 +104,12 @@
 <p>以上方案即HTTP协议给出CORS方案，是解决跨域问题的根本方案。<a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Access_control_CORS" title="MDN">HTTP访问控制（CORS）</a>这里有详细的基于HTTP CORS的描写。</p>
 <p>另一种方案即使用JSONP方案。<code>&lt;script&gt;</code>标签的src属性是不受同源策略影响的，可以绕过同源策略。它必须指定回调函数，且服务器返回数据也必须配合客户端：将数据、js逻辑以及回调函数拼接成可执行js代码。JSONP只支持Get方法，并且容易受到XSS攻击。</p>
 <h2 id="为什么-lt-script-gt-标签不受跨域影响？"><a href="#为什么-lt-script-gt-标签不受跨域影响？" class="headerlink" title="为什么&lt;script&gt;标签不受跨域影响？"></a>为什么<code>&lt;script&gt;</code>标签不受跨域影响？</h2><p>script 标签在源内是html文档的标签，不管它是不是用js生成的标签，这时它都可以理解为同源的。当它发送请求并且得到响应时，源内的脚本对响应的内容<strong>没有</strong>读写以及操作的权限。加载并运行的脚本也是其他源的脚本。这相当于把控制权交予响应回来的脚本。所以并没有安全问题。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>浏览器设计同源策略并不是为了完全杜绝跨域访问，所以，解决跨域问题的核心思想是：<strong>跨域得来的数据，其访问权与执行权要完全交予目标源，本源内的脚本不能拥有读写执行跨域得来的数据的权限</strong></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://showthesunli.github.io/myblog/2020/09/01/%E8%B7%A8%E5%9F%9F/" data-id="ckej6m110000bbwyugjo38m4q" class="article-share-link">Share</a>
+      <a data-url="https://showthesunli.github.io/myblog/2020/09/01/%E8%B7%A8%E5%9F%9F/" data-id="ckej6y6nl000broyucr7bb9q8" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/myblog/tags/%E8%B7%A8%E5%9F%9F/" rel="tag">跨域</a></li></ul>
