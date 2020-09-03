@@ -64,6 +64,169 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-python字符集 " class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/myblog/2020/09/04/python%E5%AD%97%E7%AC%A6%E9%9B%86%20/" class="article-date">
+  <time datetime="2020-09-03T18:23:00.654Z" itemprop="datePublished">2020-09-04</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/myblog/categories/python/">python</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/myblog/2020/09/04/python%E5%AD%97%E7%AC%A6%E9%9B%86%20/">[object Object]</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="Unicode是什么？"><a href="#Unicode是什么？" class="headerlink" title="Unicode是什么？"></a>Unicode是什么？</h2><p>Unicode是一种字符集，设计初衷是将全世界所有的字符都放到这一个集合中。只要所有的电脑都支持这一个字符集，就不再会出现乱码了。想的挺美好。</p>
+<h3 id="为么还有乱码？"><a href="#为么还有乱码？" class="headerlink" title="为么还有乱码？"></a>为么还有乱码？</h3><p>既然只要电脑都支持Unicode,为什么还有乱码的出现？Unicode只是一个字符集，也就是一个唯一的字符只跟一个唯一的数字匹配。这个唯一的数字叫做码点。那么问题来了，计算机存储数据都是bit位，那么计算机以什么样的字节序列来读取码点呢？换句话说，当计算机读取到0x41，这段数据被解释成“A”还是“41”呢？为了解决这个问题，现在就需要编码方式登场了。最为人熟知的Unicode编码方式有三种UTF-8,UTF-16,UTF-32。此外还有GB2312，GBK，GB18030等等，不过这些方式不属于Unicode字符集。乱码就是因为在数据编码和解码的过程中使用了不同的编码方式造成的。为么会有这么多的编码方式？可以看<a target="_blank" rel="noopener" href="https://www.freebuf.com/articles/others-articles/25623.html">这里</a></p>
+<h3 id="python对Unicode的支持"><a href="#python对Unicode的支持" class="headerlink" title="python对Unicode的支持"></a>python对Unicode的支持</h3><p>python3.0以来，开始全面支持Unicode字符集。默认的python源码文件以UTF-8编码。看看下面的例子（混合流编程）:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">我是谁 = <span class="string">&#x27;大肚子李大嘴&#x27;</span></span><br><span class="line">print(我是谁)</span><br></pre></td></tr></table></figure>
+
+<pre><code>大肚子李大嘴</code></pre>
+<p>python支持转义字符。可以避免在源文件中出现非ASCII字符。具体使用方式及说明看下面的代码：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">print(<span class="string">&#x27;\N&#123;GREEK CAPITAL LETTER DELTA&#125;&#x27;</span>) <span class="comment">#使用字符名称</span></span><br><span class="line">print(<span class="string">&#x27;\u0394&#x27;</span>)<span class="comment">#使用双字节长度的码点</span></span><br><span class="line">print(<span class="string">&#x27;\U00000394&#x27;</span>)<span class="comment">#使用四字节长度的码点</span></span><br></pre></td></tr></table></figure>
+
+<pre><code>Δ
+Δ
+Δ</code></pre>
+<p>python支持从二进制数据解码为字符串。根据<code>errors</code>参数的不同，会进行不同的错误处理。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#strict表示被解码的数据必须符合UTF-8编码，否则会抛出UnicodeDecodeError异常</span></span><br><span class="line"><span class="string">b&#x27;\x80abc&#x27;</span>.decode(<span class="string">&#x27;UTF-8&#x27;</span>,<span class="string">&#x27;strict&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+
+<pre><code>---------------------------------------------------------------------------
+
+UnicodeDecodeError                        Traceback (most recent call last)
+
+&lt;ipython-input-222-15907f3c629d&gt; in &lt;module&gt;
+      1 #strict表示被解码的数据必须符合UTF-8编码，否则会抛出UnicodeDecodeError异常
+----&gt; 2 b&#39;\x80abc&#39;.decode(&#39;UTF-8&#39;,&#39;strict&#39;)
+
+
+UnicodeDecodeError: &#39;utf-8&#39; codec can&#39;t decode byte 0x80 in position 0: invalid start byte</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#�的unicode码点是U+FFFD，所以在乱码中经常会看见这个符号，这个符号的名称叫做REPLACE CHARACTER</span></span><br><span class="line">print(<span class="string">b&#x27;\x80abc&#x27;</span>.decode(<span class="string">&#x27;UTF-8&#x27;</span>,<span class="string">&#x27;replace&#x27;</span>))</span><br><span class="line"></span><br><span class="line">print(<span class="string">&#x27;\N&#123;REPLACEMENT CHARACTER&#125;&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<pre><code>�abc
+�</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#插入一个\xNN，即插入一个转义字符反斜杠&#x27;\&#x27;</span></span><br><span class="line"><span class="string">b&#x27;\x80abc&#x27;</span>.decode(<span class="string">&#x27;UTF-8&#x27;</span>,<span class="string">&#x27;backslashreplace&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+
+
+
+<pre><code>&#39;\\x80abc&#39;</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#忽略掉不能被目标编码方式解码的数据</span></span><br><span class="line"><span class="string">b&#x27;\x80abc&#x27;</span>.decode(<span class="string">&#x27;UTF-8&#x27;</span>,<span class="string">&#x27;ignore&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+
+
+
+<pre><code>&#39;abc&#39;</code></pre>
+<p>内置函数<code>chr()</code>可以将一个整型数字转换为一个Unicode字符,这个整型参数为这个字符在Unicode中的码点。相反的操作使用内置函数<code>ord()</code></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ord(<span class="string">&#x27;中&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+
+
+
+<pre><code>20013</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chr(<span class="number">20013</span>)</span><br></pre></td></tr></table></figure>
+
+
+
+
+<pre><code>&#39;中&#39;</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hex(<span class="number">20013</span>)</span><br></pre></td></tr></table></figure>
+
+
+
+
+<pre><code>&#39;0x4e2d&#39;</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&#x27;\u4e2d&#x27;</span></span><br></pre></td></tr></table></figure>
+
+
+
+
+<pre><code>&#39;中&#39;</code></pre>
+<p>python支持从字符串编码为字节。与<code>bytes.decode()</code>相反的方法是<code>str.encode()</code>。<code>str.encode()</code>返回一个<code>bytes</code>对象，代表了str在对应的编码方式编码后产生的字节数据。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">u = chr(<span class="number">20013</span>) + <span class="string">&#x27;abcd&#x27;</span> + chr(<span class="number">22269</span>)</span><br><span class="line">print(u)</span><br><span class="line">u.encode(<span class="string">&#x27;UTF-8&#x27;</span>)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<pre><code>中abcd国
+
+
+
+
+
+b&#39;\xe4\xb8\xadabcd\xe5\x9b\xbd&#39;</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#默认的strick模式，抛出编码异常</span></span><br><span class="line">u.encode(<span class="string">&#x27;ASCII&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+
+<pre><code>---------------------------------------------------------------------------
+
+UnicodeEncodeError                        Traceback (most recent call last)
+
+&lt;ipython-input-243-b5d2794c2ab5&gt; in &lt;module&gt;
+----&gt; 1 u.encode(&#39;ASCII&#39;)
+
+
+UnicodeEncodeError: &#39;ascii&#39; codec can&#39;t encode character &#39;\u4e2d&#39; in position 0: ordinal not in range(128)</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#以？代替无法编码的数据</span></span><br><span class="line">u.encode(<span class="string">&#x27;ASCII&#x27;</span>,<span class="string">&#x27;replace&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+
+
+
+<pre><code>b&#39;?abcd?&#39;</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#无法编码的数据，插入一个XML字符的转义。</span></span><br><span class="line">u.encode(<span class="string">&#x27;ASCII&#x27;</span>,<span class="string">&#x27;xmlcharrefreplace&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+
+
+
+<pre><code>b&#39;&amp;#20013;abcd&amp;#22269;&#39;</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ord(<span class="string">&#x27;中&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+
+
+
+<pre><code>20013</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#忽略掉无法编译的数据</span></span><br><span class="line">u.encode(<span class="string">&#x27;ascii&#x27;</span>,<span class="string">&#x27;ignore&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+
+
+
+<pre><code>b&#39;abcd&#39;</code></pre>
+<p><code>str.encode()</code>的<code>errs</code>参数等于<code>backslashreplace</code>时需要详细说明。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">u = chr(<span class="number">409608</span>)+chr(<span class="number">40960</span>)+chr(<span class="number">128</span>)+chr(<span class="number">65</span>)+chr(<span class="number">8</span>)+<span class="string">&#x27;abcd&#x27;</span>+chr(<span class="number">1972</span>)</span><br><span class="line">u.encode(<span class="string">&#x27;ascii&#x27;</span>,<span class="string">&#x27;backslashreplace&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+
+
+
+<pre><code>b&#39;\\U00064008\\ua000\\x80A\x08abcd\\u07b4&#39;</code></pre>
+<p>在python中，字节串仅能使用ascii表示。而ascii码采用单字节编码，并且仅使用了前7位。所以128-255号码点没有编码。对大于128的字符，需要进行转义。<br><code>backslashreplace</code>参数使得<code>str.encode()</code>函数在编码错误的时候，会使用<code>\uhhhh \Uhhhhhhhh \xhh</code>这三种转义方式的字符串来进行编码。这些转义字符串就成了数据本身，包括转义符<code>\</code>。所以必须对转义符本身进行转义，即<code>backslashreplace</code>名称的由来，转义符替换。<br>而<code>chr(8)</code>这个字符属于ascii码，不会编码失败，但其是不可见字符，所以字节串中用<code>\x08</code>来转义了，并且不需要添加转义字符。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://showthesunli.github.io/myblog/2020/09/04/python%E5%AD%97%E7%AC%A6%E9%9B%86%20/" data-id="cken51hn10005ncyu9sy3au4i" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/myblog/tags/python/" rel="tag">python</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/myblog/tags/%E5%AD%97%E7%AC%A6%E9%9B%86/" rel="tag">字符集</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-跨域" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/myblog/2020/09/01/%E8%B7%A8%E5%9F%9F/" class="article-date">
@@ -106,7 +269,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://showthesunli.github.io/myblog/2020/09/01/%E8%B7%A8%E5%9F%9F/" data-id="ckej6y6nl000broyucr7bb9q8" class="article-share-link">Share</a>
+      <a data-url="https://showthesunli.github.io/myblog/2020/09/01/%E8%B7%A8%E5%9F%9F/" data-id="cken51hnh000cncyud3fj2y3i" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/myblog/tags/%E8%B7%A8%E5%9F%9F/" rel="tag">跨域</a></li></ul>
@@ -165,7 +328,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://showthesunli.github.io/myblog/2020/08/28/%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B8%8A%E7%9A%84git/" data-id="ckej6y6nj000aroyub0fh9g8l" class="article-share-link">Share</a>
+      <a data-url="https://showthesunli.github.io/myblog/2020/08/28/%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B8%8A%E7%9A%84git/" data-id="cken51hnd000bncyu4jz76eah" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/myblog/tags/git/" rel="tag">git</a></li></ul>
@@ -286,7 +449,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://showthesunli.github.io/myblog/2020/08/26/hexo-%E9%83%A8%E7%BD%B2-%E7%AE%A1%E7%90%86-%E5%86%99%E4%BD%9C/" data-id="ckej6y6nd0004royuangbb6cf" class="article-share-link">Share</a>
+      <a data-url="https://showthesunli.github.io/myblog/2020/08/26/hexo-%E9%83%A8%E7%BD%B2-%E7%AE%A1%E7%90%86-%E5%86%99%E4%BD%9C/" data-id="cken51hms0002ncyucq5xgeev" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/myblog/tags/hexo/" rel="tag">hexo</a></li></ul>
@@ -345,7 +508,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://showthesunli.github.io/myblog/2020/08/24/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%EF%BC%8C%E5%AE%8C%E7%BE%8E%E5%B9%B3%E6%96%B9%E6%95%B0%E9%97%AE%E9%A2%98%E5%AE%9E%E4%BE%8B/" data-id="ckej6y6nf0005royucr0072ag" class="article-share-link">Share</a>
+      <a data-url="https://showthesunli.github.io/myblog/2020/08/24/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%EF%BC%8C%E5%AE%8C%E7%BE%8E%E5%B9%B3%E6%96%B9%E6%95%B0%E9%97%AE%E9%A2%98%E5%AE%9E%E4%BE%8B/" data-id="cken51hn40006ncyug0nzdnlp" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/myblog/tags/leetcode/" rel="tag">leetcode</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/myblog/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" rel="tag">动态规划</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/myblog/tags/%E5%AE%8C%E7%BE%8E%E5%B9%B3%E6%96%B9%E6%95%B0/" rel="tag">完美平方数</a></li></ul>
@@ -421,7 +584,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://showthesunli.github.io/myblog/2020/08/24/E-R%E5%9B%BE/" data-id="ckej6y6mz0000royu7gg6bf9o" class="article-share-link">Share</a>
+      <a data-url="https://showthesunli.github.io/myblog/2020/08/24/E-R%E5%9B%BE/" data-id="cken51hmm0001ncyu2cbt8lja" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/myblog/tags/%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AE%BE%E8%AE%A1/" rel="tag">数据库设计</a></li></ul>
@@ -506,7 +669,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://showthesunli.github.io/myblog/2020/08/24/%E5%BB%BA%E8%A1%A8%E7%BA%A6%E6%9D%9F/" data-id="ckej6y6ng0006royu51xjhts0" class="article-share-link">Share</a>
+      <a data-url="https://showthesunli.github.io/myblog/2020/08/24/%E5%BB%BA%E8%A1%A8%E7%BA%A6%E6%9D%9F/" data-id="cken51hn80007ncyu566n36v2" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/myblog/tags/mysql/" rel="tag">mysql</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/myblog/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="tag">数据库</a></li></ul>
@@ -528,7 +691,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">分类</h3>
     <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/myblog/categories/git/">git</a></li><li class="category-list-item"><a class="category-list-link" href="/myblog/categories/%E5%89%8D%E7%AB%AF/">前端</a></li><li class="category-list-item"><a class="category-list-link" href="/myblog/categories/%E5%8D%9A%E5%AE%A2/">博客</a></li><li class="category-list-item"><a class="category-list-link" href="/myblog/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a></li><li class="category-list-item"><a class="category-list-link" href="/myblog/categories/%E7%AE%97%E6%B3%95/">算法</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/myblog/categories/%E7%AE%97%E6%B3%95/leetcode/">leetcode</a></li></ul></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/myblog/categories/git/">git</a></li><li class="category-list-item"><a class="category-list-link" href="/myblog/categories/python/">python</a></li><li class="category-list-item"><a class="category-list-link" href="/myblog/categories/%E5%89%8D%E7%AB%AF/">前端</a></li><li class="category-list-item"><a class="category-list-link" href="/myblog/categories/%E5%8D%9A%E5%AE%A2/">博客</a></li><li class="category-list-item"><a class="category-list-link" href="/myblog/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a></li><li class="category-list-item"><a class="category-list-link" href="/myblog/categories/%E7%AE%97%E6%B3%95/">算法</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/myblog/categories/%E7%AE%97%E6%B3%95/leetcode/">leetcode</a></li></ul></li></ul>
     </div>
   </div>
 
@@ -538,7 +701,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">标签</h3>
     <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/myblog/tags/git/" rel="tag">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/myblog/tags/hexo/" rel="tag">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/myblog/tags/leetcode/" rel="tag">leetcode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/myblog/tags/mysql/" rel="tag">mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/myblog/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" rel="tag">动态规划</a></li><li class="tag-list-item"><a class="tag-list-link" href="/myblog/tags/%E5%AE%8C%E7%BE%8E%E5%B9%B3%E6%96%B9%E6%95%B0/" rel="tag">完美平方数</a></li><li class="tag-list-item"><a class="tag-list-link" href="/myblog/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="tag">数据库</a></li><li class="tag-list-item"><a class="tag-list-link" href="/myblog/tags/%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AE%BE%E8%AE%A1/" rel="tag">数据库设计</a></li><li class="tag-list-item"><a class="tag-list-link" href="/myblog/tags/%E8%B7%A8%E5%9F%9F/" rel="tag">跨域</a></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/myblog/tags/git/" rel="tag">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/myblog/tags/hexo/" rel="tag">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/myblog/tags/leetcode/" rel="tag">leetcode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/myblog/tags/mysql/" rel="tag">mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/myblog/tags/python/" rel="tag">python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/myblog/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" rel="tag">动态规划</a></li><li class="tag-list-item"><a class="tag-list-link" href="/myblog/tags/%E5%AD%97%E7%AC%A6%E9%9B%86/" rel="tag">字符集</a></li><li class="tag-list-item"><a class="tag-list-link" href="/myblog/tags/%E5%AE%8C%E7%BE%8E%E5%B9%B3%E6%96%B9%E6%95%B0/" rel="tag">完美平方数</a></li><li class="tag-list-item"><a class="tag-list-link" href="/myblog/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="tag">数据库</a></li><li class="tag-list-item"><a class="tag-list-link" href="/myblog/tags/%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AE%BE%E8%AE%A1/" rel="tag">数据库设计</a></li><li class="tag-list-item"><a class="tag-list-link" href="/myblog/tags/%E8%B7%A8%E5%9F%9F/" rel="tag">跨域</a></li></ul>
     </div>
   </div>
 
@@ -548,7 +711,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">标签云</h3>
     <div class="widget tagcloud">
-      <a href="/myblog/tags/git/" style="font-size: 10px;">git</a> <a href="/myblog/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/myblog/tags/leetcode/" style="font-size: 10px;">leetcode</a> <a href="/myblog/tags/mysql/" style="font-size: 10px;">mysql</a> <a href="/myblog/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" style="font-size: 10px;">动态规划</a> <a href="/myblog/tags/%E5%AE%8C%E7%BE%8E%E5%B9%B3%E6%96%B9%E6%95%B0/" style="font-size: 10px;">完美平方数</a> <a href="/myblog/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" style="font-size: 10px;">数据库</a> <a href="/myblog/tags/%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AE%BE%E8%AE%A1/" style="font-size: 10px;">数据库设计</a> <a href="/myblog/tags/%E8%B7%A8%E5%9F%9F/" style="font-size: 10px;">跨域</a>
+      <a href="/myblog/tags/git/" style="font-size: 10px;">git</a> <a href="/myblog/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/myblog/tags/leetcode/" style="font-size: 10px;">leetcode</a> <a href="/myblog/tags/mysql/" style="font-size: 10px;">mysql</a> <a href="/myblog/tags/python/" style="font-size: 10px;">python</a> <a href="/myblog/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" style="font-size: 10px;">动态规划</a> <a href="/myblog/tags/%E5%AD%97%E7%AC%A6%E9%9B%86/" style="font-size: 10px;">字符集</a> <a href="/myblog/tags/%E5%AE%8C%E7%BE%8E%E5%B9%B3%E6%96%B9%E6%95%B0/" style="font-size: 10px;">完美平方数</a> <a href="/myblog/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" style="font-size: 10px;">数据库</a> <a href="/myblog/tags/%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AE%BE%E8%AE%A1/" style="font-size: 10px;">数据库设计</a> <a href="/myblog/tags/%E8%B7%A8%E5%9F%9F/" style="font-size: 10px;">跨域</a>
     </div>
   </div>
 
@@ -570,6 +733,10 @@
       <ul>
         
           <li>
+            <a href="/myblog/2020/09/04/python%E5%AD%97%E7%AC%A6%E9%9B%86%20/">[object Object]</a>
+          </li>
+        
+          <li>
             <a href="/myblog/2020/09/01/%E8%B7%A8%E5%9F%9F/">跨域</a>
           </li>
         
@@ -583,10 +750,6 @@
         
           <li>
             <a href="/myblog/2020/08/24/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%EF%BC%8C%E5%AE%8C%E7%BE%8E%E5%B9%B3%E6%96%B9%E6%95%B0%E9%97%AE%E9%A2%98%E5%AE%9E%E4%BE%8B/">动态规划，完美平方数问题实例</a>
-          </li>
-        
-          <li>
-            <a href="/myblog/2020/08/24/E-R%E5%9B%BE/">E-R图</a>
           </li>
         
       </ul>
