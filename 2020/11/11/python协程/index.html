@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>python协程 | lee&#39;blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="异步IO规则 async def async with  async for 声明了一个原生的协程或异步生成器  关键字await将代码的控制权交还给事件循环。当代码遇到await关键字时，便中止执行协程代码块内的代码，直到await后面的 代码执行完毕后再返回执行协程代码块内的代码  使用await和 return创建一个协程函数。调用协程，必须得使用await关键字获取协程执行结果。  yie">
+<meta property="og:type" content="article">
+<meta property="og:title" content="python协程">
+<meta property="og:url" content="https://showthesunli.github.io/myblog/2020/11/11/python%E5%8D%8F%E7%A8%8B/index.html">
+<meta property="og:site_name" content="lee&#39;blog">
+<meta property="og:description" content="异步IO规则 async def async with  async for 声明了一个原生的协程或异步生成器  关键字await将代码的控制权交还给事件循环。当代码遇到await关键字时，便中止执行协程代码块内的代码，直到await后面的 代码执行完毕后再返回执行协程代码块内的代码  使用await和 return创建一个协程函数。调用协程，必须得使用await关键字获取协程执行结果。  yie">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://showthesunli.github.io/myblog/2020/11/11/python%E5%8D%8F%E7%A8%8B/image-20201112073839052.png">
+<meta property="article:published_time" content="2020-11-11T02:58:06.000Z">
+<meta property="article:modified_time" content="2020-11-12T00:20:55.660Z">
+<meta property="article:author" content="lee">
+<meta property="article:tag" content="python">
+<meta property="article:tag" content="并发">
+<meta property="article:tag" content="协程">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://showthesunli.github.io/myblog/2020/11/11/python%E5%8D%8F%E7%A8%8B/image-20201112073839052.png">
+  
+    <link rel="alternate" href="/myblog/atom.xml" title="lee&#39;blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/myblog/css/style.css">
+
+<meta name="generator" content="Hexo 5.1.1"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/myblog/" id="logo">lee&#39;blog</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/myblog/">Home</a>
+        
+          <a class="main-nav-link" href="/myblog/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/myblog/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://showthesunli.github.io/myblog"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-python协程" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/myblog/2020/11/11/python%E5%8D%8F%E7%A8%8B/" class="article-date">
+  <time datetime="2020-11-11T02:58:06.000Z" itemprop="datePublished">2020-11-11</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/myblog/categories/python/">python</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      python协程
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="异步IO规则"><a href="#异步IO规则" class="headerlink" title="异步IO规则"></a>异步IO规则</h2><ul>
+<li><p><code>async def</code> <code>async with </code> <code>async for</code> 声明了一个原生的协程或异步生成器</p>
+</li>
+<li><p>关键字<code>await</code>将代码的控制权交还给事件循环。当代码遇到<code>await</code>关键字时，便中止执行协程代码块内的代码，直到<code>await</code>后面的</p>
+<p>代码执行完毕后再返回执行协程代码块内的代码</p>
+</li>
+<li><p>使用<code>await</code>和 <code>return</code>创建一个协程函数。调用协程，必须得使用<code>await</code>关键字获取协程执行结果。</p>
+</li>
+<li><p><code>yield</code>也可以用在协程函数定义中，但在未来的版本将被废弃</p>
+</li>
+<li><p><code>yield from</code>在协程的定义中会抛出<code>SyntaxError</code>异常</p>
+</li>
+<li><p><code>await</code>必须在协程函数之内使用，否则会抛出<code>SyntaxError</code>异常</p>
+</li>
+</ul>
+<h2 id="异步IO设计模式"><a href="#异步IO设计模式" class="headerlink" title="异步IO设计模式"></a>异步IO设计模式</h2><h3 id="协程链"><a href="#协程链" class="headerlink" title="协程链"></a>协程链</h3><p>协程是可等待对象，这意味这一个协程可以等待另外一个协程。由此可以将程序分成更小，可管理，可回收的程序。在这种设计模式中，可以近似的将程序的逻辑理解为一条主线程上串了一条条协程任务链。此时，每条协程链上的任务是同步的，而程序的执行时间取决于最长的那条协程链。</p>
+<p><img src="/myblog/2020/11/11/python%E5%8D%8F%E7%A8%8B/image-20201112073839052.png" alt="协程链图示"></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python3</span></span><br><span class="line"><span class="comment"># chained.py</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> asyncio</span><br><span class="line"><span class="keyword">import</span> random</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"></span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">def</span> <span class="title">part1</span>(<span class="params">n: int</span>) -&gt; str:</span></span><br><span class="line">    i = random.randint(<span class="number">0</span>, <span class="number">10</span>)</span><br><span class="line">    print(<span class="string">f&quot;part1(<span class="subst">&#123;n&#125;</span>) sleeping for <span class="subst">&#123;i&#125;</span> seconds.&quot;</span>)</span><br><span class="line">    <span class="keyword">await</span> asyncio.sleep(i)</span><br><span class="line">    result = <span class="string">f&quot;result<span class="subst">&#123;n&#125;</span>-1&quot;</span></span><br><span class="line">    print(<span class="string">f&quot;Returning part1(<span class="subst">&#123;n&#125;</span>) == <span class="subst">&#123;result&#125;</span>.&quot;</span>)</span><br><span class="line">    <span class="keyword">return</span> result</span><br><span class="line"></span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">def</span> <span class="title">part2</span>(<span class="params">n: int, arg: str</span>) -&gt; str:</span></span><br><span class="line">    i = random.randint(<span class="number">0</span>, <span class="number">10</span>)</span><br><span class="line">    print(<span class="string">f&quot;part2<span class="subst">&#123;n, arg&#125;</span> sleeping for <span class="subst">&#123;i&#125;</span> seconds.&quot;</span>)</span><br><span class="line">    <span class="keyword">await</span> asyncio.sleep(i)</span><br><span class="line">    result = <span class="string">f&quot;result<span class="subst">&#123;n&#125;</span>-2 derived from <span class="subst">&#123;arg&#125;</span>&quot;</span></span><br><span class="line">    print(<span class="string">f&quot;Returning part2<span class="subst">&#123;n, arg&#125;</span> == <span class="subst">&#123;result&#125;</span>.&quot;</span>)</span><br><span class="line">    <span class="keyword">return</span> result</span><br><span class="line"></span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">def</span> <span class="title">chain</span>(<span class="params">n: int</span>) -&gt; <span class="keyword">None</span>:</span></span><br><span class="line">    start = time.perf_counter()</span><br><span class="line">    p1 = <span class="keyword">await</span> part1(n)</span><br><span class="line">    p2 = <span class="keyword">await</span> part2(n, p1)</span><br><span class="line">    end = time.perf_counter() - start</span><br><span class="line">    print(<span class="string">f&quot;--&gt;Chained result<span class="subst">&#123;n&#125;</span> =&gt; <span class="subst">&#123;p2&#125;</span> (took <span class="subst">&#123;end:<span class="number">0.2</span>f&#125;</span> seconds).&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">def</span> <span class="title">main</span>(<span class="params">*args</span>):</span></span><br><span class="line">    <span class="keyword">await</span> asyncio.gather(*(chain(n) <span class="keyword">for</span> n <span class="keyword">in</span> args))</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    <span class="keyword">import</span> sys</span><br><span class="line">    random.seed(<span class="number">444</span>)</span><br><span class="line">    args = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>] <span class="keyword">if</span> len(sys.argv) == <span class="number">1</span> <span class="keyword">else</span> map(int, sys.argv[<span class="number">1</span>:])</span><br><span class="line">    start = time.perf_counter()</span><br><span class="line">    asyncio.run(main(*args))</span><br><span class="line">    end = time.perf_counter() - start</span><br><span class="line">    print(<span class="string">f&quot;Program finished in <span class="subst">&#123;end:<span class="number">0.2</span>f&#125;</span> seconds.&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">part1(1) sleeping for 4 seconds.</span><br><span class="line">part1(2) sleeping for 4 seconds.</span><br><span class="line">part1(3) sleeping for 0 seconds.</span><br><span class="line">Returning part1(3) == result3-1.</span><br><span class="line">part2(3, &#x27;result3-1&#x27;) sleeping for 4 seconds.</span><br><span class="line">Returning part1(1) == result1-1.</span><br><span class="line">part2(1, &#x27;result1-1&#x27;) sleeping for 7 seconds.</span><br><span class="line">Returning part1(2) == result2-1.</span><br><span class="line">part2(2, &#x27;result2-1&#x27;) sleeping for 4 seconds.</span><br><span class="line">Returning part2(3, &#x27;result3-1&#x27;) == result3-2 derived from result3-1.</span><br><span class="line"><span class="meta">--&gt;</span><span class="bash">Chained result3 =&gt; result3-2 derived from result3-1 (took 4.00 seconds).</span></span><br><span class="line">Returning part2(2, &#x27;result2-1&#x27;) == result2-2 derived from result2-1.</span><br><span class="line"><span class="meta">--&gt;</span><span class="bash">Chained result2 =&gt; result2-2 derived from result2-1 (took 8.00 seconds).</span></span><br><span class="line">Returning part2(1, &#x27;result1-1&#x27;) == result1-2 derived from result1-1.</span><br><span class="line"><span class="meta">--&gt;</span><span class="bash">Chained result1 =&gt; result1-2 derived from result1-1 (took 11.00 seconds).</span></span><br><span class="line">Program finished in 11.01 seconds.</span><br></pre></td></tr></table></figure>
+
+<p>观察上面的例子程序以及输出，可以发现程序的执行时间取决于最长的那条链条。而在单一链条之中，总是在<code>part1()</code>执行完毕之后再执行<code>part2()</code>。也就是说，在一个协程链条中，程序的代码块在逻辑上是同步执行的。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://showthesunli.github.io/myblog/2020/11/11/python%E5%8D%8F%E7%A8%8B/" data-id="ckhel0h7d000bc8yu9apqanc5" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/myblog/tags/python/" rel="tag">python</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/myblog/tags/%E5%8D%8F%E7%A8%8B/" rel="tag">协程</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/myblog/tags/%E5%B9%B6%E5%8F%91/" rel="tag">并发</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/myblog/2020/09/04/python%E5%AD%97%E7%AC%A6%E9%9B%86/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">python字符集</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/myblog/categories/git/">git</a></li><li class="category-list-item"><a class="category-list-link" href="/myblog/categories/python/">python</a></li><li class="category-list-item"><a class="category-list-link" href="/myblog/categories/%E5%89%8D%E7%AB%AF/">前端</a></li><li class="category-list-item"><a class="category-list-link" href="/myblog/categories/%E5%8D%9A%E5%AE%A2/">博客</a></li><li class="category-list-item"><a class="category-list-link" href="/myblog/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a></li><li class="category-list-item"><a class="category-list-link" href="/myblog/categories/%E7%AE%97%E6%B3%95/">算法</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/myblog/categories/%E7%AE%97%E6%B3%95/leetcode/">leetcode</a></li></ul></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/myblog/tags/git/" rel="tag">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/myblog/tags/hexo/" rel="tag">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/myblog/tags/leetcode/" rel="tag">leetcode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/myblog/tags/mysql/" rel="tag">mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/myblog/tags/python/" rel="tag">python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/myblog/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" rel="tag">动态规划</a></li><li class="tag-list-item"><a class="tag-list-link" href="/myblog/tags/%E5%8D%8F%E7%A8%8B/" rel="tag">协程</a></li><li class="tag-list-item"><a class="tag-list-link" href="/myblog/tags/%E5%AD%97%E7%AC%A6%E9%9B%86/" rel="tag">字符集</a></li><li class="tag-list-item"><a class="tag-list-link" href="/myblog/tags/%E5%AE%8C%E7%BE%8E%E5%B9%B3%E6%96%B9%E6%95%B0/" rel="tag">完美平方数</a></li><li class="tag-list-item"><a class="tag-list-link" href="/myblog/tags/%E5%B9%B6%E5%8F%91/" rel="tag">并发</a></li><li class="tag-list-item"><a class="tag-list-link" href="/myblog/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="tag">数据库</a></li><li class="tag-list-item"><a class="tag-list-link" href="/myblog/tags/%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AE%BE%E8%AE%A1/" rel="tag">数据库设计</a></li><li class="tag-list-item"><a class="tag-list-link" href="/myblog/tags/%E8%B7%A8%E5%9F%9F/" rel="tag">跨域</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/myblog/tags/git/" style="font-size: 10px;">git</a> <a href="/myblog/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/myblog/tags/leetcode/" style="font-size: 10px;">leetcode</a> <a href="/myblog/tags/mysql/" style="font-size: 10px;">mysql</a> <a href="/myblog/tags/python/" style="font-size: 20px;">python</a> <a href="/myblog/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" style="font-size: 10px;">动态规划</a> <a href="/myblog/tags/%E5%8D%8F%E7%A8%8B/" style="font-size: 10px;">协程</a> <a href="/myblog/tags/%E5%AD%97%E7%AC%A6%E9%9B%86/" style="font-size: 10px;">字符集</a> <a href="/myblog/tags/%E5%AE%8C%E7%BE%8E%E5%B9%B3%E6%96%B9%E6%95%B0/" style="font-size: 10px;">完美平方数</a> <a href="/myblog/tags/%E5%B9%B6%E5%8F%91/" style="font-size: 10px;">并发</a> <a href="/myblog/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" style="font-size: 10px;">数据库</a> <a href="/myblog/tags/%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AE%BE%E8%AE%A1/" style="font-size: 10px;">数据库设计</a> <a href="/myblog/tags/%E8%B7%A8%E5%9F%9F/" style="font-size: 10px;">跨域</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/myblog/archives/2020/11/">十一月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/myblog/archives/2020/09/">九月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/myblog/archives/2020/08/">八月 2020</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/myblog/2020/11/11/python%E5%8D%8F%E7%A8%8B/">python协程</a>
+          </li>
+        
+          <li>
+            <a href="/myblog/2020/09/04/python%E5%AD%97%E7%AC%A6%E9%9B%86/">python字符集</a>
+          </li>
+        
+          <li>
+            <a href="/myblog/2020/09/01/%E8%B7%A8%E5%9F%9F/">跨域</a>
+          </li>
+        
+          <li>
+            <a href="/myblog/2020/08/28/%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B8%8A%E7%9A%84git/">服务器上的git</a>
+          </li>
+        
+          <li>
+            <a href="/myblog/2020/08/26/hexo-%E9%83%A8%E7%BD%B2-%E7%AE%A1%E7%90%86-%E5%86%99%E4%BD%9C/">hexo-部署-管理-写作</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 lee<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/myblog/" class="mobile-nav-link">Home</a>
+  
+    <a href="/myblog/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/myblog/fancybox/jquery.fancybox.css">
+
+  
+<script src="/myblog/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/myblog/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>
